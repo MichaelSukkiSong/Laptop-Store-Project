@@ -38,6 +38,14 @@ const server = http.createServer((req, res) => {
     else if (pathName === '/laptop' && id < laptopData.length) {
         res.writeHead(200, { 'Content-type': 'text/html'});
         
+        // Many time in node there are sync and async versions of the same function.
+        // The sync version is always blocking. it makes the entire code stop for the time that the function is doing its work and that is going to block the entire
+        // thread for all the users that are accessing your code. Because nodejs runs in a single thread. so there is only one thread in the computer that runs your application
+        // no matter if you have ten users or million users accesing your app at the same time. 
+        // So if you block the single thread with sync functions that takes up alot of time, all other users will have to wait until that function finishes its work.
+        // So we usually we always try to use the async versions. Because then they do the work in the background and as soon they are finished they simply run the callback
+        // that we pass into a async function. so that is what we are doing here. the async fileread.
+
         // This time we are not going to save anything to any variable like we did up there, but instead wait until node finishes reading our file (async)
         // and then calls our callback and passes the data into that callback as the data parameter.
         // So in this callback we'll have access to that data using the data parameter. 

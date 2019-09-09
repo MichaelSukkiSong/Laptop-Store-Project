@@ -61,7 +61,7 @@ const server = http.createServer((req, res) => {
     // On the nodejs server the concepts of folders and files does not really exist. everything is like a request. and if we request a image we have to respond to that request.
     // so we need a route for the images as well. so then we can servce these images on these requests.
     else if ((/\.(jpg|jpeg|png|gif)$/i).test(pathName)) { // a true/false value indicating the resource that we are requesting is an image. test is a method available in all regular exp in JS.
-        fs.readFile(`${__dirname}/data/img${pathName}`, (err, data) => {
+        fs.readFile(`${__dirname}/data/img${pathName}`, (err, data) => { // we do not do character encoding because this is an image.
             res.writeHead(200, { 'Content-type': 'image/jpg'});
             res.end(data);
         });

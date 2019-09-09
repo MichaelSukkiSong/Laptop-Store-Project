@@ -57,7 +57,10 @@ const server = http.createServer((req, res) => {
     }
 
     // IMAGES
-    else if ((/\.(jpg|jpeg||png|gif)$/i).test(pathName)) {
+    // node js doesnt serve any files by default. every url is always like a route.
+    // On the nodejs server the concepts of folders and files does not really exist. everything is like a request. and if we request a image we have to respond to that request.
+    // so we need a route for the images as well. so then we can servce these images on these requests.
+    else if ((/\.(jpg|jpeg||png|gif)$/i).test(pathName)) { // a true/false value 
         fs.readFile(`${__dirname}/data/img${pathName}`, (err, data) => {
             res.writeHead(200, { 'Content-type': 'image/jpg'});
             res.end(data);
